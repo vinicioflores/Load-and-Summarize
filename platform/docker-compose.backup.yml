@@ -1,0 +1,64 @@
+version: '2'
+networks:
+    datamart_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config: [{subnet: 52.100.0.0/16}]
+    bigdata_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config: [{subnet: 15.100.0.0/16}]
+services:
+    memsql:
+        image: 'memsql/quickstart:latest'
+        privileged: true
+        hostname: quickstart.memsql
+        container_name: memsql_datamart
+        networks:
+            - datamart_net
+        ports:
+            - "3306:3306"
+            - "9000:9000"          # Web UI
+    cloudera:
+        image: 'cloudera/quickstart:latest'
+        privileged: true
+        hostname: quickstart.cloudera
+        command: /usr/bin/docker-quickstart
+        container_name: cloudera_stack
+        networks:
+            - bigdata_net
+        ports:
+            - "8020:8020"       # HDFS 
+            - "8022:22"         # SSH
+            - "7180:7180"       # Cloudera Manager - login with cloudera/cloudera
+            - "8888:8888"       # Hue - login with cloudera/cloudera
+            - "11000:11000"     # Oozie
+            - "50070:50070"     # HDFS Rest Namenode
+            - "50075:50075"     # HDFS Rest Datanode
+            - "2181:2181"       # Zookeeper
+            - "8088:8088"       # YARN Resource Manager
+            - "19888:19888"     # MapReduce Job History
+            - "50030:50030"     # MapReduce Job Tracker
+            - "8983:8983"       # Solr
+            - "9083:9083"       # Hive Metastore
+            - "10000:10000"     # Hive HiveServer2 - login with hiveuser/pass
+            - "50111:50111"     # Hive WebHCat REST API
+            - "16000:16000"     # Sqoop Metastore
+            - "8042:8042"       # YARN Node Manager
+            - "60010:60010"     # HBase Master
+            - "60030:60030"     # HBase Region
+            - "9015:9090"       # HBase Thrift
+            - "8080:8080"       # HBase Rest
+            - "7077:7077"       # Spark Master
+            - "21000:21000"     # Impala Shell
+            - "21050:21050"     # Impala JDBC
+            - "25000:25000"     # Impala Web Admin
+            - "25010:25010"     # Impala StateStore Web Admin
+            - "25020:25020"     # Impala Catalog Web Admin
+            - "15001:15001"     # Impala Llama Web Admin
+
+        tty: true
+        stdin_open: true
+        #volumes: ['./share:/mount/shared']

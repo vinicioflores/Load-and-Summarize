@@ -1,0 +1,1239 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/4/2018 6:00:33 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="VINICIOF-MOBL3"
+  DTS:CreatorName="AMR\viniciof"
+  DTS:DTSID="{947E9408-261E-4C3B-99C6-C8B31626E5D8}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.0600.250"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="HiveCalendarBookings2MemSQL"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{E082C5FA-B9E4-4768-BEAE-CD53C245E87E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[datamart.root]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{F8965782-8061-4290-B983-0858AFCC4549}"
+      DTS:ObjectName="datamart.root">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=root;Dsn=datamart;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{AED473F1-4CAC-4844-B28E-0FA7E993A769}"
+      DTS:ObjectName="Sample Cloudera Hive DSN.hiveuser">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=hiveuser;Dsn=Sample Cloudera Hive DSN;">
+          <DTS:Password
+            DTS:Name="pwd"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAy7YB/6vYT0WsABw7Asi4lQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADaFeOiSLxriGtpyVdbCHaXAAAAAASAAACgAAAAEAAAADiR+qOo+rgi6vPMkv90fasQAAAAWfAMAWCGSePHiJWkXt5sbBQAAABxe8s3Ekv2F6g43UeXq9/ktNU3IQ</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\HiveCalendarBookings2MemSQL"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{cc9ee579-f66f-4bb5-9878-b686465a5fef}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="HiveCalendarBookings2MemSQL"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\HiveCalendarBookings2MemSQL\Calendar"
+              componentClassID="Attunity.SSISODBCSrc"
+              contactInfo="ODBC Source;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Source"
+              name="Calendar"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName">`airbnb`.`calendar`</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand">SELECT * FROM Calendar WHERE YEAR(date) &lt; 2019;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines how the component exposes CHAR columns. If False, CHAR columns are exposed as (multi-)byte strings (DT_STR), if True, CHAR columns are exposed as wide strings (DT_WSTR)"
+                  expressionType="Notify"
+                  name="ExposeCharColumnsAsUnicode">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for fetching data."
+                  expressionType="Notify"
+                  name="FetchMethod"
+                  typeConverter="FetchMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveCalendarBookings2MemSQL\Calendar.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+                  connectionManagerRefId="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output]"
+                  errorRowDisposition="RedirectRow"
+                  name="ODBC Source Output"
+                  truncationRowDisposition="RedirectRow">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.listing_id]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.listing_id]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.listing_id]"
+                      name="calendar.listing_id" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.date]"
+                      dataType="dbDate"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.date]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.date]"
+                      name="calendar.date" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.available]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.available]"
+                      length="1"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.available]"
+                      name="calendar.available" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.price]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.price]"
+                      length="255"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.price]"
+                      name="calendar.price" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.city]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.city]"
+                      length="255"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.city]"
+                      name="calendar.city" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.listing_id]"
+                      dataType="i8"
+                      name="calendar.listing_id" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.date]"
+                      dataType="dbDate"
+                      name="calendar.date" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.available]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="calendar.available" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="calendar.price" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.city]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="calendar.city" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.listing_id]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.listing_id]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.listing_id]"
+                      name="calendar.listing_id" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.date]"
+                      dataType="dbDate"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.date]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.date]"
+                      name="calendar.date" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.available]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.available]"
+                      length="1"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.available]"
+                      name="calendar.available" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.price]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.price]"
+                      length="255"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.price]"
+                      name="calendar.price" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.city]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].ExternalColumns[calendar.city]"
+                      length="255"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.city]"
+                      name="calendar.city" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors"
+              componentClassID="Attunity.SSISODBCDst"
+              contactInfo="ODBC Destination;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Destination"
+              name="CalendarErrors"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod"
+                  typeConverter="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.String"
+                  description="Destination table"
+                  expressionType="Notify"
+                  name="TableName">`tblCalendarErrors`</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows inserted per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[datamart.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[datamart.root]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].Columns[ErrorCode]"
+                      cachedDataType="i4"
+                      cachedName="ErrorCode"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Error Output].Columns[ErrorCode]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].Columns[ErrorColumn]"
+                      cachedDataType="i4"
+                      cachedName="ErrorColumn"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Error Output].Columns[ErrorColumn]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].Columns[calendar.listing_id]"
+                      cachedDataType="i8"
+                      cachedName="calendar.listing_id"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[listing_id]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.listing_id]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].Columns[calendar.date]"
+                      cachedDataType="dbDate"
+                      cachedName="calendar.date"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[calendar_date]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.date]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].Columns[calendar.available]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="calendar.available"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[available]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.available]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].Columns[calendar.price]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="calendar.price"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[price]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.price]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].Columns[calendar.city]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="calendar.city"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[city]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.city]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      dataType="i4"
+                      name="error_code" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      codePage="1252"
+                      dataType="str"
+                      length="765"
+                      name="error_column" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[listing_id]"
+                      codePage="1252"
+                      dataType="text"
+                      name="listing_id" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[city]"
+                      codePage="1252"
+                      dataType="text"
+                      name="city" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[calendar_date]"
+                      codePage="1252"
+                      dataType="text"
+                      name="calendar_date" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[available]"
+                      codePage="1252"
+                      dataType="text"
+                      name="available" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[price]"
+                      codePage="1252"
+                      dataType="text"
+                      name="price" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[error_code]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[error_code]"
+                      name="error_code" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[error_column]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      length="765"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[error_column]"
+                      name="error_column" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[listing_id]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[listing_id]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[listing_id]"
+                      name="listing_id" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[city]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[city]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[city]"
+                      name="city" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[calendar_date]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[calendar_date]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[calendar_date]"
+                      name="calendar_date" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[available]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[available]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[available]"
+                      name="available" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[price]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input].ExternalColumns[price]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[price]"
+                      name="price" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors"
+              componentClassID="Attunity.SSISODBCDst"
+              contactInfo="ODBC Destination;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Destination"
+              name="CalendarStagingErrors"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod"
+                  typeConverter="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.String"
+                  description="Destination table"
+                  expressionType="Notify"
+                  name="TableName">`tblStagingCalendarErrors`</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows inserted per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[datamart.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[datamart.root]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].Columns[calendar.listing_id]"
+                      cachedDataType="i8"
+                      cachedName="calendar.listing_id"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[listing_id]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.listing_id]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].Columns[calendar.date]"
+                      cachedDataType="dbDate"
+                      cachedName="calendar.date"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[calendar_date]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.date]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].Columns[calendar.available]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="calendar.available"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[available]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.available]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].Columns[calendar.price]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="calendar.price"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[price]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.price]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].Columns[ErrorCode]"
+                      cachedDataType="i4"
+                      cachedName="ErrorCode"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[ErrorCode]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].Columns[ErrorColumn]"
+                      cachedDataType="i4"
+                      cachedName="ErrorColumn"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[ErrorColumn]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].Columns[calendar.city]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="calendar.city"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[city]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output].Columns[calendar.city]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      dataType="i4"
+                      name="error_code" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      codePage="1252"
+                      dataType="str"
+                      length="765"
+                      name="error_column" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[listing_id]"
+                      codePage="1252"
+                      dataType="text"
+                      name="listing_id" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[city]"
+                      codePage="1252"
+                      dataType="text"
+                      name="city" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[calendar_date]"
+                      codePage="1252"
+                      dataType="text"
+                      name="calendar_date" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[available]"
+                      codePage="1252"
+                      dataType="text"
+                      name="available" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[price]"
+                      codePage="1252"
+                      dataType="text"
+                      name="price" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_code]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_code]"
+                      name="error_code" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_column]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      length="765"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_column]"
+                      name="error_column" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[listing_id]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[listing_id]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[listing_id]"
+                      name="listing_id" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[city]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[city]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[city]"
+                      name="city" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[calendar_date]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[calendar_date]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[calendar_date]"
+                      name="calendar_date" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[available]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[available]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[available]"
+                      name="available" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[price]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[price]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[price]"
+                      name="price" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="RawdataConversionCalendarBookings"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Inputs[Derived Column Input].Columns[calendar.available]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="calendar.available"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.available]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Inputs[Derived Column Input].Columns[calendar.price]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="calendar.price"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.price]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Output].Columns[available]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="RedirectRow"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Output].Columns[available]"
+                      name="available"
+                      truncationRowDisposition="RedirectRow">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LOWER](#{Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.available]}) == "t" ? 1 : 0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LOWER([calendar.available]) == "t" ? 1 : 0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Output].Columns[price]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="RedirectRow"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Output].Columns[price]"
+                      name="price"
+                      precision="7"
+                      scale="3"
+                      truncationRowDisposition="RedirectRow">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_NUMERIC,7,3)[REPLACE](#{Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.price]},"$","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_NUMERIC,7,3)REPLACE([calendar.price],"$","")</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\HiveCalendarBookings2MemSQL\tblCalendar"
+              componentClassID="Attunity.SSISODBCDst"
+              contactInfo="ODBC Destination;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Destination"
+              name="tblCalendar"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod"
+                  typeConverter="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.String"
+                  description="Destination table"
+                  expressionType="Notify"
+                  name="TableName">`tblCalendar`</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows inserted per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[datamart.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[datamart.root]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].Columns[available]"
+                      cachedDataType="i4"
+                      cachedName="available"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[available]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Output].Columns[available]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].Columns[price]"
+                      cachedDataType="numeric"
+                      cachedName="price"
+                      cachedPrecision="7"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[price]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Output].Columns[price]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].Columns[calendar.listing_id]"
+                      cachedDataType="i8"
+                      cachedName="calendar.listing_id"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[listing_id]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.listing_id]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].Columns[calendar.date]"
+                      cachedDataType="dbDate"
+                      cachedName="calendar.date"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[calendar_date]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.date]" />
+                    <inputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].Columns[calendar.city]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="calendar.city"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[city]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output].Columns[calendar.city]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[listing_id]"
+                      dataType="i8"
+                      name="listing_id" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[city]"
+                      codePage="1252"
+                      dataType="str"
+                      length="150"
+                      name="city" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[calendar_date]"
+                      dataType="dbDate"
+                      name="calendar_date" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[available]"
+                      dataType="bool"
+                      name="available" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[price]"
+                      dataType="numeric"
+                      name="price"
+                      precision="7"
+                      scale="3" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[listing_id]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[listing_id]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[listing_id]"
+                      name="listing_id" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[city]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[city]"
+                      length="150"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[city]"
+                      name="city" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[calendar_date]"
+                      dataType="dbDate"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[calendar_date]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[calendar_date]"
+                      name="calendar_date" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[available]"
+                      dataType="bool"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[available]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[available]"
+                      name="available" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[price]"
+                      dataType="numeric"
+                      externalMetadataColumnId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input].ExternalColumns[price]"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[price]"
+                      name="price"
+                      precision="7"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\HiveCalendarBookings2MemSQL.Paths[Derived Column Error Output]"
+              endId="Package\HiveCalendarBookings2MemSQL\CalendarErrors.Inputs[ODBC Destination Input]"
+              name="Derived Column Error Output"
+              startId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Error Output]" />
+            <path
+              refId="Package\HiveCalendarBookings2MemSQL.Paths[Derived Column Output]"
+              endId="Package\HiveCalendarBookings2MemSQL\tblCalendar.Inputs[ODBC Destination Input]"
+              name="Derived Column Output"
+              startId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\HiveCalendarBookings2MemSQL.Paths[ODBC Source Error Output]"
+              endId="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors.Inputs[ODBC Destination Input]"
+              name="ODBC Source Error Output"
+              startId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Error Output]" />
+            <path
+              refId="Package\HiveCalendarBookings2MemSQL.Paths[ODBC Source Output]"
+              endId="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings.Inputs[Derived Column Input]"
+              name="ODBC Source Output"
+              startId="Package\HiveCalendarBookings2MemSQL\Calendar.Outputs[ODBC Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="229.6,41.6"
+          Id="Package\HiveCalendarBookings2MemSQL"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\HiveCalendarBookings2MemSQL">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="120,41.6"
+          Id="Package\HiveCalendarBookings2MemSQL\Calendar"
+          TopLeft="148.489798359551,60" />
+        <NodeLayout
+          Size="254.4,41.6"
+          Id="Package\HiveCalendarBookings2MemSQL\RawdataConversionCalendarBookings"
+          TopLeft="60,210.003362326309" />
+        <NodeLayout
+          Size="183.2,41.6"
+          Id="Package\HiveCalendarBookings2MemSQL\CalendarStagingErrors"
+          TopLeft="322.367352341076,290.023532637757" />
+        <NodeLayout
+          Size="132,41.6"
+          Id="Package\HiveCalendarBookings2MemSQL\tblCalendar"
+          TopLeft="87.755102513483,290.628572803786" />
+        <NodeLayout
+          Size="148,41.6"
+          Id="Package\HiveCalendarBookings2MemSQL\CalendarErrors"
+          TopLeft="157.14285879719,351.872270147952" />
+        <EdgeLayout
+          Id="Package\HiveCalendarBookings2MemSQL.Paths[ODBC Source Output]"
+          TopLeft="188.511565846442,101.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,108.403362326309"
+              Start="0,0"
+              End="0,100.903362326309">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,100.903362326309" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\HiveCalendarBookings2MemSQL.Paths[ODBC Source Error Output]"
+          TopLeft="227.156465026217,101.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="186.810887314859,188.423532637758"
+              Start="0,0"
+              End="186.810887314859,180.923532637758">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,72.8569672601379" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,72.8569672601379"
+                    Point2="0,76.8569672601379"
+                    Point3="4,76.8569672601379" />
+                  <mssgle:LineSegment
+                    End="182.810887314859,76.8569672601379" />
+                  <mssgle:CubicBezierSegment
+                    Point1="182.810887314859,76.8569672601379"
+                    Point2="186.810887314859,76.8569672601379"
+                    Point3="186.810887314859,80.8569672601379" />
+                  <mssgle:LineSegment
+                    End="186.810887314859,180.923532637758" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="33.8265374074293,81.8569672601379,119.1578125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\HiveCalendarBookings2MemSQL.Paths[Derived Column Output]"
+          TopLeft="149.944217923408,251.603362326309">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.0252104774773"
+              Start="0,0"
+              End="0,31.5252104774773">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5252104774773" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\HiveCalendarBookings2MemSQL.Paths[Derived Column Error Output]"
+          TopLeft="229.704762731928,251.603362326309">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,100.268907821643"
+              Start="0,0"
+              End="0,92.7689078216433">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,92.7689078216433" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-64.96138671875,40.5797664108216,129.9227734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\HiveCalendarBookings2MemSQL\tblCalendar">
+    <Properties>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

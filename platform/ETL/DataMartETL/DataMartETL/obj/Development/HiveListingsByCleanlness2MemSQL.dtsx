@@ -1,0 +1,730 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/4/2018 6:01:46 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="VINICIOF-MOBL3"
+  DTS:CreatorName="AMR\viniciof"
+  DTS:DTSID="{47542829-AD3F-4049-95B8-4D01F48FC280}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.0600.250"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="HiveListingsByCleanlness2MemSQL"
+  DTS:PackageType="5"
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{6F6B4B9C-7D08-48C9-BF6C-37D6AF77BA1F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[datamart.root]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{F8965782-8061-4290-B983-0858AFCC4549}"
+      DTS:ObjectName="datamart.root">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=root;Dsn=datamart;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{AED473F1-4CAC-4844-B28E-0FA7E993A769}"
+      DTS:ObjectName="Sample Cloudera Hive DSN.hiveuser">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=hiveuser;Dsn=Sample Cloudera Hive DSN;">
+          <DTS:Password
+            DTS:Name="pwd"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAy7YB/6vYT0WsABw7Asi4lQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADiP9XmBpTLUYDdSzZD7Mh4AAAAAASAAACgAAAAEAAAAMb212cDurenDr/Ex+kILc0QAAAA1sBYurvavAYyUeajMQuvyRQAAAB4Cua98UCCA/f/pyoOcZkYaxFTaw</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\HiveListingsByCleanlness2MemSQL"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3811c1b2-35e6-4aac-a8bb-5b9ea729a901}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="HiveListingsByCleanlness2MemSQL"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness"
+              componentClassID="Attunity.SSISODBCSrc"
+              contactInfo="ODBC Source;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Source"
+              name="ListingsByCleanliness"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName">`airbnb`.`listingsbycleanliness`</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand">SELECT 
+category as category
+, city as city
+, listingcount as listingcount 
+FROM listingsbycleanliness;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines how the component exposes CHAR columns. If False, CHAR columns are exposed as (multi-)byte strings (DT_STR), if True, CHAR columns are exposed as wide strings (DT_WSTR)"
+                  expressionType="Notify"
+                  name="ExposeCharColumnsAsUnicode">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for fetching data."
+                  expressionType="Notify"
+                  name="FetchMethod"
+                  typeConverter="FetchMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+                  connectionManagerRefId="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output]"
+                  errorRowDisposition="RedirectRow"
+                  name="ODBC Source Output"
+                  truncationRowDisposition="RedirectRow">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].Columns[category]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].ExternalColumns[category]"
+                      length="255"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].Columns[category]"
+                      name="category" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].Columns[city]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].ExternalColumns[city]"
+                      length="255"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].Columns[city]"
+                      name="city" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].Columns[listingcount]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].ExternalColumns[listingcount]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].Columns[listingcount]"
+                      name="listingcount" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].ExternalColumns[category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="category" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].ExternalColumns[city]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="city" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].ExternalColumns[listingcount]"
+                      dataType="i8"
+                      name="listingcount" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[category]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].ExternalColumns[category]"
+                      length="255"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[category]"
+                      name="category" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[city]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].ExternalColumns[city]"
+                      length="255"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[city]"
+                      name="city" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[listingcount]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].ExternalColumns[listingcount]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[listingcount]"
+                      name="listingcount" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness"
+              componentClassID="Attunity.SSISODBCDst"
+              contactInfo="ODBC Destination;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Destination"
+              name="tblListingsByCleanliness"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod"
+                  typeConverter="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.String"
+                  description="Destination table"
+                  expressionType="Notify"
+                  name="TableName">`tblListingsByCleanliness`</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows inserted per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[datamart.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[datamart.root]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].Columns[category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="category"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].ExternalColumns[Category]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].Columns[category]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].Columns[city]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="city"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].Columns[city]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].Columns[listingcount]"
+                      cachedDataType="i8"
+                      cachedName="listingcount"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output].Columns[listingcount]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].ExternalColumns[Category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="300"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="150"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      dataType="i8"
+                      name="ListingCount" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output].Columns[Category]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].ExternalColumns[Category]"
+                      length="300"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output].Columns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      length="150"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output].Columns[ListingCount]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output].Columns[ListingCount]"
+                      name="ListingCount" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors"
+              componentClassID="Attunity.SSISODBCDst"
+              contactInfo="ODBC Destination;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Destination"
+              name="tblStagingListingsByCleanlinessErrors"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod"
+                  typeConverter="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.String"
+                  description="Destination table"
+                  expressionType="Notify"
+                  name="TableName">`tblStagingListingsByCleanlinessErrors`</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows inserted per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[datamart.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[datamart.root]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].Columns[ErrorCode]"
+                      cachedDataType="i4"
+                      cachedName="ErrorCode"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[ErrorCode]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].Columns[ErrorColumn]"
+                      cachedDataType="i4"
+                      cachedName="ErrorColumn"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[ErrorColumn]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].Columns[category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="category"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[Category]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[category]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].Columns[listingcount]"
+                      cachedDataType="i8"
+                      cachedName="listingcount"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[listingcount]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].Columns[city]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="city"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output].Columns[city]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      dataType="i4"
+                      name="error_code" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      codePage="1252"
+                      dataType="str"
+                      length="765"
+                      name="error_column" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[Category]"
+                      codePage="1252"
+                      dataType="text"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="text"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      codePage="1252"
+                      dataType="text"
+                      name="ListingCount" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[error_code]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[error_code]"
+                      name="error_code" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[error_column]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      length="765"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[error_column]"
+                      name="error_column" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[Category]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[Category]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[City]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[ListingCount]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[ListingCount]"
+                      name="ListingCount" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\HiveListingsByCleanlness2MemSQL.Paths[ODBC Source Error Output]"
+              endId="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors.Inputs[ODBC Destination Input]"
+              name="ODBC Source Error Output"
+              startId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Error Output]" />
+            <path
+              refId="Package\HiveListingsByCleanlness2MemSQL.Paths[ODBC Source Output]"
+              endId="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness.Inputs[ODBC Destination Input]"
+              name="ODBC Source Output"
+              startId="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness.Outputs[ODBC Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="242.4,41.6"
+          Id="Package\HiveListingsByCleanlness2MemSQL"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\HiveListingsByCleanlness2MemSQL">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="252,41.6"
+          Id="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors"
+          TopLeft="429.485720319164,62.1848752929266" />
+        <NodeLayout
+          Size="176.8,41.6"
+          Id="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness"
+          TopLeft="61.6000058972109,60" />
+        <NodeLayout
+          Size="129.6,61.6"
+          Id="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness"
+          TopLeft="81.8367374548085,128.3831942027" />
+        <EdgeLayout
+          Id="Package\HiveListingsByCleanlness2MemSQL.Paths[ODBC Source Output]"
+          TopLeft="148.31837167601,101.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.7831942026997"
+              Start="0,0"
+              End="0,19.2831942026997">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.2831942026997" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\HiveListingsByCleanlness2MemSQL.Paths[ODBC Source Error Output]"
+          TopLeft="238.400005897211,81.8924376464633">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="191.085714421953,0"
+              Start="0,0"
+              End="183.585714421953,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="183.585714421953,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="32.2139509609766,5,119.1578125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\HiveListingsByCleanlness2MemSQL\tblStagingListingsByCleanlinessErrors">
+    <Properties>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\HiveListingsByCleanlness2MemSQL\ListingsByCleanliness">
+    <Properties>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\HiveListingsByCleanlness2MemSQL\tblListingsByCleanliness">
+    <Properties>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

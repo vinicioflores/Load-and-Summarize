@@ -1,0 +1,21 @@
+version: '2'
+networks:
+    datamart_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config: [{subnet: 52.100.0.0/16}]
+            
+services:
+    memsql:
+        image: 'memsql/quickstart:latest'
+        privileged: true
+        hostname: quickstart.memsql
+        container_name: memsql_datamart
+        networks:
+            - datamart_net
+        ports:
+            - "3306:3306"
+            - "9000:9000"          # Web UI
+    
+  

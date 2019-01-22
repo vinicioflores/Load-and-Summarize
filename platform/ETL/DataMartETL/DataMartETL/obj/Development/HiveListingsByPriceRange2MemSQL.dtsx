@@ -1,0 +1,726 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/4/2018 6:01:32 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="VINICIOF-MOBL3"
+  DTS:CreatorName="AMR\viniciof"
+  DTS:DTSID="{994885C6-01A4-47B1-8485-00501EDFB080}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.0600.250"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="HiveListingsByPriceRange2MemSQL"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{7BB38700-986E-47EC-9E9F-315B71450076}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[datamart.root]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{F8965782-8061-4290-B983-0858AFCC4549}"
+      DTS:ObjectName="datamart.root">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=root;Dsn=datamart;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{AED473F1-4CAC-4844-B28E-0FA7E993A769}"
+      DTS:ObjectName="Sample Cloudera Hive DSN.hiveuser">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=hiveuser;Dsn=Sample Cloudera Hive DSN;">
+          <DTS:Password
+            DTS:Name="pwd"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAy7YB/6vYT0WsABw7Asi4lQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAC2c8yQuSKrqYvY/J6MFn1JAAAAAASAAACgAAAAEAAAALwiQ/Veh6OimzcYLN9poKgQAAAA3L+IC1gdoKSIq9KwuAeFOhQAAADdmBwcEdlYXDF9rbMXag1opyv14w</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\HiveListingsByPriceRange2MemSQL"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{5626ac7e-3895-468d-a189-f164f88a5e91}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="HiveListingsByPriceRange2MemSQL"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange"
+              componentClassID="Attunity.SSISODBCSrc"
+              contactInfo="ODBC Source;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Source"
+              name="ListingsByPriceRange"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName">`airbnb`.`listingsbypricerange`</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines how the component exposes CHAR columns. If False, CHAR columns are exposed as (multi-)byte strings (DT_STR), if True, CHAR columns are exposed as wide strings (DT_WSTR)"
+                  expressionType="Notify"
+                  name="ExposeCharColumnsAsUnicode">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for fetching data."
+                  expressionType="Notify"
+                  name="FetchMethod"
+                  typeConverter="FetchMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+                  connectionManagerRefId="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output]"
+                  errorRowDisposition="RedirectRow"
+                  name="ODBC Source Output"
+                  truncationRowDisposition="RedirectRow">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].Columns[listingsbypricerange.pricerange]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].ExternalColumns[listingsbypricerange.pricerange]"
+                      length="255"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].Columns[listingsbypricerange.pricerange]"
+                      name="listingsbypricerange.pricerange" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].Columns[listingsbypricerange.city]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].ExternalColumns[listingsbypricerange.city]"
+                      length="255"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].Columns[listingsbypricerange.city]"
+                      name="listingsbypricerange.city" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].Columns[listingsbypricerange.listingcount]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].ExternalColumns[listingsbypricerange.listingcount]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].Columns[listingsbypricerange.listingcount]"
+                      name="listingsbypricerange.listingcount" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].ExternalColumns[listingsbypricerange.pricerange]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="listingsbypricerange.pricerange" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].ExternalColumns[listingsbypricerange.city]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="listingsbypricerange.city" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].ExternalColumns[listingsbypricerange.listingcount]"
+                      dataType="i8"
+                      name="listingsbypricerange.listingcount" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[listingsbypricerange.pricerange]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].ExternalColumns[listingsbypricerange.pricerange]"
+                      length="255"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[listingsbypricerange.pricerange]"
+                      name="listingsbypricerange.pricerange" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[listingsbypricerange.city]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].ExternalColumns[listingsbypricerange.city]"
+                      length="255"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[listingsbypricerange.city]"
+                      name="listingsbypricerange.city" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[listingsbypricerange.listingcount]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].ExternalColumns[listingsbypricerange.listingcount]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[listingsbypricerange.listingcount]"
+                      name="listingsbypricerange.listingcount" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors"
+              componentClassID="Attunity.SSISODBCDst"
+              contactInfo="ODBC Destination;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Destination"
+              name="ListingsByPriceRangeStagingErrors"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod"
+                  typeConverter="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.String"
+                  description="Destination table"
+                  expressionType="Notify"
+                  name="TableName">`tblStagingListingsByPriceRangeErrors`</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows inserted per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[datamart.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[datamart.root]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].Columns[ErrorCode]"
+                      cachedDataType="i4"
+                      cachedName="ErrorCode"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[ErrorCode]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].Columns[ErrorColumn]"
+                      cachedDataType="i4"
+                      cachedName="ErrorColumn"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[ErrorColumn]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].Columns[listingsbypricerange.pricerange]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="listingsbypricerange.pricerange"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[PriceRange]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[listingsbypricerange.pricerange]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].Columns[listingsbypricerange.city]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="listingsbypricerange.city"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[listingsbypricerange.city]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].Columns[listingsbypricerange.listingcount]"
+                      cachedDataType="i8"
+                      cachedName="listingsbypricerange.listingcount"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output].Columns[listingsbypricerange.listingcount]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      dataType="i4"
+                      name="error_code" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      codePage="1252"
+                      dataType="str"
+                      length="765"
+                      name="error_column" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[PriceRange]"
+                      codePage="1252"
+                      dataType="text"
+                      name="PriceRange" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="text"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      codePage="1252"
+                      dataType="text"
+                      name="ListingCount" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_code]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_code]"
+                      name="error_code" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_column]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      length="765"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_column]"
+                      name="error_column" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[PriceRange]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[PriceRange]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[PriceRange]"
+                      name="PriceRange" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[City]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[ListingCount]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[ListingCount]"
+                      name="ListingCount" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange"
+              componentClassID="Attunity.SSISODBCDst"
+              contactInfo="ODBC Destination;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Destination"
+              name="tblListingsByPriceRange"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod"
+                  typeConverter="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.String"
+                  description="Destination table"
+                  expressionType="Notify"
+                  name="TableName">`tblListingsByPriceRange`</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows inserted per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[datamart.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[datamart.root]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].Columns[listingsbypricerange.pricerange]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="listingsbypricerange.pricerange"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].ExternalColumns[PriceRange]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].Columns[listingsbypricerange.pricerange]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].Columns[listingsbypricerange.city]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="listingsbypricerange.city"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].Columns[listingsbypricerange.city]" />
+                    <inputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].Columns[listingsbypricerange.listingcount]"
+                      cachedDataType="i8"
+                      cachedName="listingsbypricerange.listingcount"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output].Columns[listingsbypricerange.listingcount]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].ExternalColumns[PriceRange]"
+                      codePage="1252"
+                      dataType="str"
+                      length="300"
+                      name="PriceRange" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="150"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      dataType="i8"
+                      name="ListingCount" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output].Columns[PriceRange]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].ExternalColumns[PriceRange]"
+                      length="300"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output].Columns[PriceRange]"
+                      name="PriceRange" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output].Columns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      length="150"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output].Columns[ListingCount]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input].ExternalColumns[ListingCount]"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output].Columns[ListingCount]"
+                      name="ListingCount" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\HiveListingsByPriceRange2MemSQL.Paths[ODBC Source Error Output]"
+              endId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors.Inputs[ODBC Destination Input]"
+              name="ODBC Source Error Output"
+              startId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Error Output]" />
+            <path
+              refId="Package\HiveListingsByPriceRange2MemSQL.Paths[ODBC Source Output]"
+              endId="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange.Inputs[ODBC Destination Input]"
+              name="ODBC Source Output"
+              startId="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange.Outputs[ODBC Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="245.6,41.6"
+          Id="Package\HiveListingsByPriceRange2MemSQL"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\HiveListingsByPriceRange2MemSQL">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="189.6,41.6"
+          Id="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange"
+          TopLeft="93.6,225.673952800922" />
+        <NodeLayout
+          Size="177.6,41.6"
+          Id="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange"
+          TopLeft="105.942857298559,60" />
+        <NodeLayout
+          Size="240.8,41.6"
+          Id="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors"
+          TopLeft="398.253061916808,58.164709940584" />
+        <EdgeLayout
+          Id="Package\HiveListingsByPriceRange2MemSQL.Paths[ODBC Source Output]"
+          TopLeft="191.57142864928,101.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,124.073952800922"
+              Start="0,0"
+              End="0,116.573952800922">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,116.573952800922" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\HiveListingsByPriceRange2MemSQL.Paths[ODBC Source Error Output]"
+          TopLeft="283.542857298559,79.882354970292">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="114.710204618248,0"
+              Start="0,0"
+              End="107.210204618248,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="107.210204618248,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-5.97380394087599,5,119.1578125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\HiveListingsByPriceRange2MemSQL\tblListingsByPriceRange">
+    <Properties>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRange">
+    <Properties>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\HiveListingsByPriceRange2MemSQL\ListingsByPriceRangeStagingErrors">
+    <Properties>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

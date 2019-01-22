@@ -1,0 +1,687 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/4/2018 6:00:50 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="VINICIOF-MOBL3"
+  DTS:CreatorName="AMR\viniciof"
+  DTS:DTSID="{1E85D7AF-64D8-423D-A263-86F2346515AC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.0600.250"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="HiveCitiesOrderedByHostingExperience2MemSQL"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{D253C11D-390B-434E-8D81-E5B0D592B732}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[datamart.root]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{F8965782-8061-4290-B983-0858AFCC4549}"
+      DTS:ObjectName="datamart.root">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=root;Dsn=datamart;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{AED473F1-4CAC-4844-B28E-0FA7E993A769}"
+      DTS:ObjectName="Sample Cloudera Hive DSN.hiveuser">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=hiveuser;Dsn=Sample Cloudera Hive DSN;">
+          <DTS:Password
+            DTS:Name="pwd"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAy7YB/6vYT0WsABw7Asi4lQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADVF0tFtlcBbSmGKL9VjqiDAAAAAASAAACgAAAAEAAAAC+JwVDkiAf/oDXuME6X5vMQAAAASHrYBKM+LKkkAquevPO8QRQAAAAU3D/cNLzU/0ZxZVDiEWBRX5FQDg</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{4d4f8e5e-b14a-4d8d-adbd-bcfd17416280}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="HiveCitiesOrderedByHostingExperience2MemSQL"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures"
+              componentClassID="Attunity.SSISODBCDst"
+              contactInfo="ODBC Destination;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Destination"
+              name="CitiesOrderedByHostingExperienceMeasures"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod"
+                  typeConverter="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.String"
+                  description="Destination table"
+                  expressionType="Notify"
+                  name="TableName">`tblCitiesOrderedByHostingExperienceMeasures`</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows inserted per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[datamart.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[datamart.root]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].Columns[citiesorderedbyhostingexperiencemeasuresavro.city]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="citiesorderedbyhostingexperiencemeasuresavro.city"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.city]" />
+                    <inputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].Columns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]"
+                      cachedDataType="dbDate"
+                      cachedName="citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].ExternalColumns[OldestHostRegistration]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]" />
+                    <inputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].Columns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]"
+                      cachedDataType="i8"
+                      cachedName="citiesorderedbyhostingexperiencemeasuresavro.totalhostscount"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].ExternalColumns[TotalHostsCount]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="150"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].ExternalColumns[OldestHostRegistration]"
+                      dataType="dbDate"
+                      name="OldestHostRegistration" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].ExternalColumns[TotalHostsCount]"
+                      dataType="i8"
+                      name="TotalHostsCount" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output].Columns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      length="150"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output].Columns[OldestHostRegistration]"
+                      dataType="dbDate"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].ExternalColumns[OldestHostRegistration]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output].Columns[OldestHostRegistration]"
+                      name="OldestHostRegistration" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output].Columns[TotalHostsCount]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input].ExternalColumns[TotalHostsCount]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output].Columns[TotalHostsCount]"
+                      name="TotalHostsCount" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro"
+              componentClassID="Attunity.SSISODBCSrc"
+              contactInfo="ODBC Source;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Source"
+              name="CitiesOrderedByHostingExperienceMeasuresAvro"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName">`airbnb`.`citiesorderedbyhostingexperiencemeasuresavro`</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines how the component exposes CHAR columns. If False, CHAR columns are exposed as (multi-)byte strings (DT_STR), if True, CHAR columns are exposed as wide strings (DT_WSTR)"
+                  expressionType="Notify"
+                  name="ExposeCharColumnsAsUnicode">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for fetching data."
+                  expressionType="Notify"
+                  name="FetchMethod"
+                  typeConverter="FetchMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+                  connectionManagerRefId="Package.ConnectionManagers[Sample Cloudera Hive DSN.hiveuser]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output]"
+                  errorRowDisposition="RedirectRow"
+                  name="ODBC Source Output"
+                  truncationRowDisposition="RedirectRow">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.city]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Insert"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].ExternalColumns[citiesorderedbyhostingexperiencemeasuresavro.city]"
+                      length="255"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.city]"
+                      name="citiesorderedbyhostingexperiencemeasuresavro.city" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Insert"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].ExternalColumns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]"
+                      name="citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Insert"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].ExternalColumns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]"
+                      name="citiesorderedbyhostingexperiencemeasuresavro.totalhostscount" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].ExternalColumns[citiesorderedbyhostingexperiencemeasuresavro.city]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="citiesorderedbyhostingexperiencemeasuresavro.city" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].ExternalColumns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]"
+                      dataType="dbDate"
+                      name="citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].ExternalColumns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]"
+                      dataType="i8"
+                      name="citiesorderedbyhostingexperiencemeasuresavro.totalhostscount" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.city]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].ExternalColumns[citiesorderedbyhostingexperiencemeasuresavro.city]"
+                      length="255"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.city]"
+                      name="citiesorderedbyhostingexperiencemeasuresavro.city" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]"
+                      dataType="dbDate"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].ExternalColumns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]"
+                      name="citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]"
+                      dataType="i8"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output].ExternalColumns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]"
+                      name="citiesorderedbyhostingexperiencemeasuresavro.totalhostscount" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors"
+              componentClassID="Attunity.SSISODBCDst"
+              contactInfo="ODBC Destination;Connector for Open Database Connectivity (ODBC) by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="ODBC Destination"
+              name="CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod"
+                  typeConverter="InsertMethod">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs"
+                  typeConverter="BindCharColumnsAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs"
+                  typeConverter="BindNumericAs">0</property>
+                <property
+                  dataType="System.String"
+                  description="Destination table"
+                  expressionType="Notify"
+                  name="TableName">`tblStagingCitiesOrderedByHostingExperienceMeasuresAvroErrors`</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows inserted per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Connections[ODBCConnection]"
+                  connectionManagerID="Package.ConnectionManagers[datamart.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[datamart.root]"
+                  description="The ODBC runtime connection"
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].Columns[ErrorCode]"
+                      cachedDataType="i4"
+                      cachedName="ErrorCode"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[ErrorCode]" />
+                    <inputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].Columns[ErrorColumn]"
+                      cachedDataType="i4"
+                      cachedName="ErrorColumn"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[ErrorColumn]" />
+                    <inputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].Columns[citiesorderedbyhostingexperiencemeasuresavro.city]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="citiesorderedbyhostingexperiencemeasuresavro.city"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.city]" />
+                    <inputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].Columns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]"
+                      cachedDataType="dbDate"
+                      cachedName="citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[OldestHostRegistration]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.oldesthostregistration]" />
+                    <inputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].Columns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]"
+                      cachedDataType="i8"
+                      cachedName="citiesorderedbyhostingexperiencemeasuresavro.totalhostscount"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[TotalHostsCount]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output].Columns[citiesorderedbyhostingexperiencemeasuresavro.totalhostscount]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      dataType="i4"
+                      name="error_code" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      codePage="1252"
+                      dataType="str"
+                      length="765"
+                      name="error_column" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="text"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[OldestHostRegistration]"
+                      codePage="1252"
+                      dataType="text"
+                      name="OldestHostRegistration" />
+                    <externalMetadataColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[TotalHostsCount]"
+                      codePage="1252"
+                      dataType="text"
+                      name="TotalHostsCount" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output]"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_code]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_code]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_code]"
+                      name="error_code" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_column]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[error_column]"
+                      length="765"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[error_column]"
+                      name="error_column" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[City]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[City]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[OldestHostRegistration]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[OldestHostRegistration]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[OldestHostRegistration]"
+                      name="OldestHostRegistration" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[TotalHostsCount]"
+                      codePage="1252"
+                      dataType="text"
+                      externalMetadataColumnId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input].ExternalColumns[TotalHostsCount]"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[TotalHostsCount]"
+                      name="TotalHostsCount" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL.Paths[ODBC Source Error Output]"
+              endId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors.Inputs[ODBC Destination Input]"
+              name="ODBC Source Error Output"
+              startId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Error Output]" />
+            <path
+              refId="Package\HiveCitiesOrderedByHostingExperience2MemSQL.Paths[ODBC Source Output]"
+              endId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures.Inputs[ODBC Destination Input]"
+              name="ODBC Source Output"
+              startId="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro.Outputs[ODBC Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="308,41.6"
+          Id="Package\HiveCitiesOrderedByHostingExperience2MemSQL"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\HiveCitiesOrderedByHostingExperience2MemSQL">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="305.6,41.6"
+          Id="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvro"
+          TopLeft="17.436745930831,24.0067233399121" />
+        <NodeLayout
+          Size="147.2,73.6"
+          Id="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasuresAvroStagingErrors"
+          TopLeft="151.232666576709,258.541180365803" />
+        <NodeLayout
+          Size="171.2,49.6"
+          Id="Package\HiveCitiesOrderedByHostingExperience2MemSQL\CitiesOrderedByHostingExperienceMeasures"
+          TopLeft="28.2938889728689,93.364707461031" />
+        <EdgeLayout
+          Id="Package\HiveCitiesOrderedByHostingExperience2MemSQL.Paths[ODBC Source Output]"
+          TopLeft="117.26531745185,65.6067233399121">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.7579841211186"
+              Start="0,0"
+              End="0,20.2579841211186">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2579841211186" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\HiveCitiesOrderedByHostingExperience2MemSQL.Paths[ODBC Source Error Output]"
+          TopLeft="222.33470625377,65.6067233399121">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,192.934457025891"
+              Start="0,0"
+              End="0,185.434457025891">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,185.434457025891" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-59.57890625,87.0004316379455,119.1578125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
